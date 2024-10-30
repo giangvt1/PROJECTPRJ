@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background-color: #1a1a2e;
+            font-family: Arial, sans-serif;
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #16213e;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        header img.logo {
+            width: 100px;
+            height: auto;
+        }
+        header h1 {
+            margin: 0;
+            flex-grow: 1;
+            text-align: center;
+            color: #e94560;
+            font-size: 24px;
+        }
+        .container {
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 800px;
+            text-align: center;
+            flex: 1;
+        }
+        .button {
+            background-color: #e94560;
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #d6336c;
+        }
+        .options {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .options .button {
+            margin: 10px;
+        }
+        .additional-content {
+            margin-top: 20px;
+            text-align: left;
+            background-color: #1e2d39;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .additional-content h3 {
+            margin-top: 0;
+            color: #e94560;
+        }
+        footer {
+            background-color: #16213e;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            margin-top: auto;
+            box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+        }
+        footer p {
+            margin: 5px 0;
+            color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="path/to/your/logo.png" alt="Logo" class="logo">
+        <h1>Company Management</h1>
+        <input type="button" class="button" value="Login" onclick="window.location.href = 'view/login/login.jsp'" style="margin-left: 10px;">
+    </header>
+    <div class="container">
+        <div class="additional-content">
+            <h3>First Greeting</h3>
+            <p>Welcome to our company, offering the best products for you.</p>
+            <img src="view/img/ttt.jpg" alt="Image" style="max-width: 100%; height: auto; border-radius: 5px;">
+        </div>
+    </div>
+    <footer>
+        <p>Contact Information: info@yourcompany.com | Hotline: 0123-456-789</p>
+        <p>&copy; 2024 XYZ Company. All rights reserved.</p>
+    </footer>
+</body>
+</html>
