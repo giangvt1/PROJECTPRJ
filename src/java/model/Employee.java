@@ -25,6 +25,21 @@ public class Employee {
     private User updatedby;
     private java.util.Date updatetime; 
 
+    public Employee() {
+    }
+
+    public Employee(int id, String name, boolean gender, Date dob, String address, Department dept, User createdby, User updatedby, java.util.Date updatetime) {
+        this.id = id;
+        this.name = name;
+        this.gender = gender;
+        this.dob = dob;
+        this.address = address;
+        this.dept = dept;
+        this.createdby = createdby;
+        this.updatedby = updatedby;
+        this.updatetime = updatetime;
+    }
+
     public User getUpdatedby() {
         return updatedby;
     }

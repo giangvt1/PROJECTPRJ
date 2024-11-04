@@ -78,7 +78,7 @@
             </div>
             <div class="form-group">
                 <label for="shift">Shift (K):</label>
-                <input type="text" id="shift" name="shift" maxlength="1" class="form-control" required>
+                <input type="text" id="shift" name="shift" maxlength="2 " class="form-control" required>
             </div>
             <div class="form-group">
                 <label for="quantity">Quantity:</label>

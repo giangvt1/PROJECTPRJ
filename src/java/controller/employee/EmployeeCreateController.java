@@ -72,8 +72,7 @@ public class EmployeeCreateController extends BaseRBACController {
         EmployeeDBContext db = new EmployeeDBContext();
         db.insert(e);
 
-        // Return response to the user
-        resp.getWriter().println("Inserted employee with ID: " + e.getId());
+        resp.sendRedirect("list");
 
     }
 

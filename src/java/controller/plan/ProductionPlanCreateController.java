@@ -1,5 +1,6 @@
 package controller.plan;
 
+import controller.accesscontrol.BaseRBACController;
 import dal.DepartmentDBContext;
 import dal.PlanDBContext;
 import dal.ProductDBContext;
@@ -14,12 +15,12 @@ import model.Plan;
 import model.PlanCampaign;
 import model.Product;
 import model.accesscontroller.Department;
+import model.accesscontroller.User;
 
-public class ProductionPlanCreateController extends HttpServlet {
+public class ProductionPlanCreateController extends BaseRBACController {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doAuthorizedGet(HttpServletRequest request, HttpServletResponse response, User logged) throws ServletException, IOException {
         ProductDBContext dbProduct = new ProductDBContext();
         DepartmentDBContext dbDept = new DepartmentDBContext();
         request.setAttribute("products", dbProduct.list());
@@ -28,9 +29,7 @@ public class ProductionPlanCreateController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // Lấy danh sách ID sản phẩm từ form
+    protected void doAuthorizedPost(HttpServletRequest request, HttpServletResponse response, User logged) throws ServletException, IOException {
         String[] pids = request.getParameterValues("pro_id");
         if (pids == null || pids.length == 0) {
             response.getWriter().println("No products selected.");
@@ -101,5 +100,6 @@ public class ProductionPlanCreateController extends HttpServlet {
         } else {
             response.getWriter().println("Your plan did not have any campaigns.");
         }
+        response.sendRedirect("list");
     }
 }

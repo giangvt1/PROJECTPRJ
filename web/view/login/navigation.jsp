@@ -140,17 +140,26 @@
                 <h3>Production Plan</h3>
                 <input type="button" value="Create Production Plan" onclick="window.location.href = '<%= request.getContextPath() %>/productionplan/create'">
                 <input type="button" value="Production Plan List" onclick="window.location.href = '<%= request.getContextPath() %>/productionplan/list'">
+                <input type="button" value="Detail Plan List" onclick="window.location.href = '<%= request.getContextPath() %>/productionplan/detail'">
+
             </div>
             <div class="section">
                 <h3>Schedule Campaign</h3>
                 <input type="button" value="Create Campaign Schedule" onclick="window.location.href = '<%= request.getContextPath() %>/schedule/create'">
                 <input type="button" value="List Campaign Schedule" onclick="window.location.href = '<%= request.getContextPath() %>/schedule/list'">
             </div>
+            <div class="section">
+                <h3>Attendant</h3>
+                <input type="button" value="List of Attendants" onclick="window.location.href = '<%= request.getContextPath() %>/attendant/list'">
+            </div>
         </div>
         <footer class="footer">
-            <p>Contact Information: company_A@email.com | Phone: 
-                <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-                <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-                </body>
-                </html>
+            <p>Contact Information: company_A@email.com | Phone: 123-456-7890</p>
+        </footer>
+
+        <!-- Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </body>
+</html>

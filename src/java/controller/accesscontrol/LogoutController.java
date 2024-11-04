@@ -11,7 +11,7 @@ public class LogoutController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         request.getSession().setAttribute("account", null); // Xóa thông tin tài khoản trong session
-        response.sendRedirect(request.getContextPath() + "/index.html"); // Chuyển hướng về trang index.html
+        response.sendRedirect(request.getContextPath() + "/home.html"); // Chuyển hướng về trang index.html
     } 
 
     @Override

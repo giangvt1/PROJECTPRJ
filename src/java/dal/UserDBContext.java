@@ -21,19 +21,6 @@ import model.accesscontroller.Role;
  */
 public class UserDBContext extends DBContext<User> {
 
-    public void updateResetCode(String username, int code, LocalDateTime expiration) {
-        String sql = "UPDATE [User] SET reset_code = ?, reset_code_expiration = ? WHERE username = ?";
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setInt(1, code);
-            ps.setTimestamp(2, Timestamp.valueOf(expiration));
-            ps.setString(3, username);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, e);
-
-        }
-    }
-
     public ArrayList<Employee> filter(Integer id, String name, Boolean gender, Date dob, String address, Department dept) {
         ArrayList<Employee> emps = new ArrayList<>();
         return emps;
@@ -42,48 +29,59 @@ public class UserDBContext extends DBContext<User> {
     public ArrayList<Role> getRoles(String username) {
         ArrayList<Role> roles = new ArrayList<>();
         String sql = """
-                     select r.r_id,r.r_name,f.f_id,f.f_name,f.url from [User] u
-                     join UserRole ur on ur.username=u.username
-                     join [Role] r on r.r_id=ur.r_id
-                     join RoleFeature rf on rf.r_id=r.r_id
-                     join Feature f on f.f_id=rf.f_id
-                     where u.username=? 
-                     order by f.f_id asc""";
+                 SELECT r.r_id, r.r_name, f.f_id, f.f_name, f.url 
+                 FROM [User] u
+                 JOIN UserRole ur ON ur.username = u.username
+                 JOIN [Role] r ON r.r_id = ur.r_id
+                 JOIN RoleFeature rf ON rf.r_id = r.r_id
+                 JOIN Feature f ON f.f_id = rf.f_id
+                 WHERE u.username = ? 
+                 ORDER BY f.f_id ASC""";
+
         PreparedStatement stm = null;
+        ResultSet rs = null;
         try {
             stm = connection.prepareStatement(sql);
             stm.setString(1, username);
-            ResultSet rs = stm.executeQuery();
-            Role crole = new Role();
-            crole.setId(-1);
+            rs = stm.executeQuery();
+
+            Role currentRole = null; // Initialize current role
             while (rs.next()) {
                 int r_id = rs.getInt("r_id");
-                if (r_id != crole.getId()) {
-                    crole = new Role();
-                    crole.setId(r_id);
-                    crole.setName(rs.getString("r_name"));
-                    roles.add(crole);
+                if (currentRole == null || r_id != currentRole.getId()) {
+                    // If currentRole is null or we have a new role, create a new Role object
+                    currentRole = new Role();
+                    currentRole.setId(r_id);
+                    currentRole.setName(rs.getString("r_name"));
+                    currentRole.setFeatures(new ArrayList<>()); // Initialize features list
+                    roles.add(currentRole);
                 }
-                Feature f = new Feature();
-                f.setId(rs.getInt("f_id"));
-                f.setName(rs.getString("f_name"));
-                f.setUrl(rs.getString("url"));
-                crole.getFeatures().add(f);
-                f.setRoles(roles);
+                // Create Feature object
+                Feature feature = new Feature();
+                feature.setId(rs.getInt("f_id"));
+                feature.setName(rs.getString("f_name"));
+                feature.setUrl(rs.getString("url"));
+                currentRole.getFeatures().add(feature); // Add feature to the current role
             }
         } catch (SQLException e) {
             Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, e);
-
         } finally {
+            // Close resources
             try {
-                stm.close();
-                connection.close();
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
             } catch (SQLException e) {
                 Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, e);
-
             }
         }
-        return roles;
+        return roles; // Return the list of roles
     }
 
     /**

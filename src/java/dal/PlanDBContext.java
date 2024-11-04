@@ -7,12 +7,60 @@ import java.sql.Statement; // Thay thế cho java.beans.Statement
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Attentdant;
+import model.DetailPlan;
+import model.Employee;
 import model.Plan;
 import model.PlanCampaign;
 import model.Product;
+import model.ScheduleCampaign;
 import model.accesscontroller.Department;
 
 public class PlanDBContext extends DBContext<Plan> {
+
+    public ArrayList<DetailPlan> getDetail() {
+        ArrayList<DetailPlan> details = new ArrayList<>();
+
+        String sql = "SELECT e.e_id AS EmployeeID, e.e_name AS EmployeeName, "
+                + "p.pro_name AS ProductName, sc.K AS Shift, sc.quantity AS OrderedQuantity "
+                + "FROM [Employee] e "
+                + "JOIN WorkerSchedule ws ON ws.e_id = e.e_id "
+                + "JOIN ScheduleCampaign sc ON sc.sc_id = ws.sc_id "
+                + "JOIN PlanCampaign pc ON pc.pc_id = sc.pc_id "
+                + "JOIN [Product] p ON p.pro_id = pc.pro_id";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                DetailPlan dp = new DetailPlan();
+
+                // Populate Employee information
+                Employee e = new Employee();
+                e.setId(rs.getInt("EmployeeID"));
+                e.setName(rs.getNString("EmployeeName"));
+                dp.setE(e);
+
+                // Populate Product information
+                Product p = new Product();
+                p.setName(rs.getNString("ProductName"));
+                dp.setP(p);
+
+                // Populate ScheduleCampaign information
+                ScheduleCampaign sc = new ScheduleCampaign();
+                sc.setShift(rs.getNString("Shift"));
+                sc.setQuantity(rs.getInt("OrderedQuantity"));
+                dp.setSc(sc);
+
+                // Add the DetailPlan to the list
+                details.add(dp);
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(PlanDBContext.class.getName()).log(Level.SEVERE, "Error fetching plan details", e);
+        }
+
+        return details;
+    }
 
     @Override
     public void insert(Plan model) {

@@ -6,18 +6,33 @@ package model;
 
 import java.util.ArrayList;
 import java.sql.*;
+
 /**
  *
  * @author acer
  */
 public class ScheduleCampaign {
+
     private int id;
     private PlanCampaign camps;
-    private  Date date;
+    private Date date;
     private String shift;
     private int quantity;
     private Product pros;
 
+    public ScheduleCampaign() {
+    }
+
+    public ScheduleCampaign(int id, PlanCampaign camps, Date date, String shift, int quantity, Product pros) {
+        this.id = id;
+        this.camps = camps;
+        this.date = date;
+        this.shift = shift;
+        this.quantity = quantity;
+        this.pros = pros;
+    }
+
+    
     public PlanCampaign getCamps() {
         return camps;
     }
@@ -26,7 +41,6 @@ public class ScheduleCampaign {
         this.camps = camps;
     }
 
-
     public Product getPros() {
         return pros;
     }
@@ -34,7 +48,6 @@ public class ScheduleCampaign {
     public void setPros(Product pros) {
         this.pros = pros;
     }
-    
 
     public int getId() {
         return id;
@@ -43,7 +56,6 @@ public class ScheduleCampaign {
     public void setId(int id) {
         this.id = id;
     }
-
 
     public Date getDate() {
         return date;
@@ -68,5 +80,5 @@ public class ScheduleCampaign {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-    
+
 }

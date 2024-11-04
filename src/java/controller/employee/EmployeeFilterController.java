@@ -4,6 +4,7 @@
  */
 package controller.employee;
 
+import controller.accesscontrol.BaseRBACController;
 import dal.DepartmentDBContext;
 import dal.EmployeeDBContext;
 import java.io.IOException;
@@ -21,7 +22,7 @@ import model.accesscontroller.Department;
  *
  * @author acer giangvt
  */
-public class EmployeeFilterController extends HttpServlet {
+public class EmployeeFilterController extends BaseRBACController {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -60,24 +61,16 @@ public class EmployeeFilterController extends HttpServlet {
         request.getRequestDispatcher("../view/employee/filter.jsp").forward(request, response);
     }
 
+
+
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    protected void doAuthorizedGet(HttpServletRequest req, HttpServletResponse resp, User logged) throws ServletException, IOException {
+        processRequest(req, resp);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    protected void doAuthorizedPost(HttpServletRequest req, HttpServletResponse resp, User logged) throws ServletException, IOException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

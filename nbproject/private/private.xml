@@ -3,7 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/acer/OneDrive/Desktop/CNKi4/PRJ301/CODE/TESTWITHDB/web/view/login/navigation.jsp</file>
+            <file>file:/C:/Users/acer/OneDrive/Desktop/CNKi4/PRJ301/CODE/PROJECTPRJ/web/view/login/login.jsp</file>
+            <file>file:/C:/Users/acer/OneDrive/Desktop/CNKi4/PRJ301/CODE/PROJECTPRJ/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/acer/OneDrive/Desktop/CNKi4/PRJ301/CODE/PROJECTPRJ/src/java/controller/accesscontrol/UserLoginController.java</file>
         </group>
     </open-files>
 </project-private>

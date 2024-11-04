@@ -71,6 +71,14 @@
     </style>
 </head>
 <body>
+    <!-- Success Alert (if creation was successful) -->
+    <c:if test="${not empty sessionScope.createSuccess}">
+        <script>
+            alert("Create successful!");
+        </script>
+        <!-- Remove the success attribute from session to prevent repeat alerts -->
+        <c:remove var="createSuccess" scope="session" />
+    </c:if>
     <a href="<%= request.getContextPath() %>/view/login/navigation.jsp" class="btn-back">Back</a>
     <div class="container">
         <h2 class="text-center">Schedule Campaign List</h2>

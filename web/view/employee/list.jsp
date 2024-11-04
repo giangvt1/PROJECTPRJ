@@ -89,6 +89,13 @@
     </script>
 </head>
 <body>
+    <c:if test="${not empty sessionScope.createSuccess}">
+            <script>
+                alert("Create successful!");
+            </script>
+            <!-- Remove the success attribute from session to prevent repeat alerts -->
+            <c:remove var="createSuccess" scope="session" />
+        </c:if>
     <button type="button" class="back-button" onclick="window.location.href = '<%= request.getContextPath() %>/view/login/navigation.jsp'">Back</button>
     <header class="header">
         List of Employees

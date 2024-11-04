@@ -58,46 +58,65 @@ public class ScheduleCampaignDBContext extends DBContext<ScheduleCampaign> {
     }
 
     @Override
-    public void insert(ScheduleCampaign model) {
-        String sql = "INSERT INTO ScheduleCampaign (pc_id, date, K, quantity) VALUES (?, ?, ?, ?)";
+public void insert(ScheduleCampaign model) {
+    String getMaxIdSql = "SELECT MAX(sc_id) AS max_id FROM ScheduleCampaign";
+    String insertSql = "INSERT INTO ScheduleCampaign (sc_id, pc_id, date, K, quantity) VALUES (?, ?, ?, ?, ?)";
+    PreparedStatement ps = null;
 
+    try {
+        // Get the current maximum ID
+        ps = connection.prepareStatement(getMaxIdSql);
+        ResultSet rs = ps.executeQuery();
+        int newId = 1; // Default to 1 if no rows exist
+
+        if (rs.next()) {
+            newId = rs.getInt("max_id") + 1;
+        }
+        rs.close();
+        
+        // Set the new ID to the model
+        model.setId(newId);
+
+        // Start transaction
+        connection.setAutoCommit(false);
+
+        // Prepare statement for ScheduleCampaign insert
+        ps = connection.prepareStatement(insertSql);
+
+        // Set parameters
+        ps.setInt(1, newId); // Set the new ID
+        ps.setInt(2, model.getCamps().getId());
+        ps.setDate(3, model.getDate());
+        ps.setString(4, model.getShift());
+        ps.setInt(5, model.getQuantity());
+
+        // Execute insert
+        ps.executeUpdate();
+
+        // Commit transaction
+        connection.commit();
+        System.out.println("ScheduleCampaign inserted successfully with ID: " + newId);
+
+    } catch (SQLException e) {
         try {
-            // Start transaction
-            connection.setAutoCommit(false);
-
-            // Prepare statement for ScheduleCampaign insert
-            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
-            // Set parameters
-            ps.setInt(1, model.getCamps().getId()); // Assuming PlanCampaign ID is already set in model.getCamps()
-            ps.setDate(2, model.getDate());
-            ps.setString(3, model.getShift());
-            ps.setInt(4, model.getQuantity());
-
-            // Execute insert
-            ps.executeUpdate();
-
-            // Commit transaction
-            connection.commit();
-            System.out.println("ScheduleCampaign inserted successfully.");
-
-        } catch (SQLException e) {
-            // Rollback if there is an exception
-            try {
-                connection.rollback();
-                Logger.getLogger(ScheduleCampaignDBContext.class.getName()).log(Level.SEVERE, "Transaction rolled back due to an error: " + e.getMessage(), e);
-            } catch (SQLException ex) {
-                Logger.getLogger(ScheduleCampaignDBContext.class.getName()).log(Level.SEVERE, "Error during rollback", ex);
+            connection.rollback();
+            Logger.getLogger(ScheduleCampaignDBContext.class.getName()).log(Level.SEVERE,
+                    "Transaction rolled back due to an error: " + e.getMessage(), e);
+        } catch (SQLException ex) {
+            Logger.getLogger(ScheduleCampaignDBContext.class.getName()).log(Level.SEVERE, "Error during rollback", ex);
+        }
+    } finally {
+        try {
+            if (ps != null) {
+                ps.close();
             }
-        } finally {
-            // Reset auto-commit to true
-            try {
-                connection.setAutoCommit(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(ScheduleCampaignDBContext.class.getName()).log(Level.SEVERE, "Error resetting auto-commit", ex);
-            }
+            connection.setAutoCommit(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(ScheduleCampaignDBContext.class.getName()).log(Level.SEVERE, "Error resetting auto-commit or closing PreparedStatement", ex);
         }
     }
+}
+
 
     @Override
     public void update(ScheduleCampaign model) {

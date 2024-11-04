@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+
     <servlet>
         <servlet-name>EmployeeListController</servlet-name>
         <servlet-class>controller.employee.EmployeeListController</servlet-class>
     </servlet>
+    
     <servlet>
         <servlet-name>EmployeeUpdateController</servlet-name>
         <servlet-class>controller.employee.EmployeeUpdateController</servlet-class>
@@ -56,6 +58,18 @@
         <servlet-name>ScheduleCampaignListController</servlet-name>
         <servlet-class>controller.schedule.ScheduleCampaignListController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DetailPlanController</servlet-name>
+        <servlet-class>controller.plan.DetailPlanController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AttendantListController</servlet-name>
+        <servlet-class>controller.attendant.AttendantListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AttendantCreateController</servlet-name>
+        <servlet-class>controller.attendant.AttendantCreateController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>EmployeeListController</servlet-name>
         <url-pattern>/employee/list</url-pattern>
@@ -76,6 +90,7 @@
         <servlet-name>UserLoginController</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>EmployeeCreateController</servlet-name>
         <url-pattern>/employee/create</url-pattern>
@@ -119,5 +134,17 @@
     <servlet-mapping>
         <servlet-name>ScheduleCampaignListController</servlet-name>
         <url-pattern>/schedule/list</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetailPlanController</servlet-name>
+        <url-pattern>/productionplan/detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AttendantListController</servlet-name>
+        <url-pattern>/attendant/list</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AttendantCreateController</servlet-name>
+        <url-pattern>/attendant/create</url-pattern>
     </servlet-mapping>
 </web-app>

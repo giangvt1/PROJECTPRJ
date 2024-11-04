@@ -44,7 +44,7 @@
     </div>
 
     <!-- Back Button -->
-    <a href="previousPageURL" class="btn btn-back">Back</a>
+    <a href="<%= request.getContextPath() %>/view/login/navigation.jsp" class="btn btn-back">Back</a>
 
     <!-- Main Content -->
     <div class="container mt-4">
